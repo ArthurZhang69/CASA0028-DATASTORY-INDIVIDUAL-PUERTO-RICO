@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 const DATA_SOURCES = [
   {
     id: 'grid',
-    logo: '/logos/osm-logo.png',
+    logo: `${import.meta.env.BASE_URL}logos/osm-logo.png`,
     logoAlt: 'OpenStreetMap',
     category: 'GRID DATA',
     name: 'OPENSTREETMAP',
@@ -11,7 +11,7 @@ const DATA_SOURCES = [
   },
   {
     id: 'nightlight',
-    logo: '/logos/eog-logo.png',
+    logo: `${import.meta.env.BASE_URL}logos/eog-logo.png`,
     logoAlt: 'Earth Observatory Group',
     category: 'NIGHTLIGHT DATA',
     name: 'EARTH OBSERVATORY GROUP',
@@ -19,7 +19,7 @@ const DATA_SOURCES = [
   },
   {
     id: 'dem',
-    logo: '/logos/copernicus-logo.png',
+    logo: `${import.meta.env.BASE_URL}logos/copernicus-logo.png`,
     logoAlt: 'Copernicus',
     category: 'TOPOGRAPHY DATA',
     name: 'COPERNICUS DEM',

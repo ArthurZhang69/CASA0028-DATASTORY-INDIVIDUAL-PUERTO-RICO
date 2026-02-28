@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
 import { getColor } from '../utils/colorUtils'
 import PowerlineLayer from './PowerlineLayer'
+console.log('MAPBOX_TOKEN:', import.meta.env.VITE_MAPBOX_TOKEN)
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 const TILESET_DEM = 'arthurzhang.8u69sbnj'
