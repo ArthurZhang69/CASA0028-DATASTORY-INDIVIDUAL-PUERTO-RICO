@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&family=VT323&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #020507;
+  --surface: #03070b;
+  --surface2: #050a12;
+  --border: rgba(0, 200, 255, 0.28);
+  --border-hot: rgba(0, 200, 255, 0.55);
+  --text: #d9efff;
+  --text-dim: rgba(184, 212, 232, 0.45);
+  --text-muted: rgba(217, 239, 255, 0.82);
+  --red: #ff2233;
+  --cyan: #00c8ff;
+  --amber: #ff9500;
+  --font-crt: 'VT323', monospace;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-display: 'Bebas Neue', sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  overflow: hidden;
+}
+
+/* CRT scan lines */
+body::before {
+  content: none;
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.45) 2px,
+    rgba(0,0,0,0.45) 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: none;
+}
+
+@keyframes scanroll {
+  from { background-position: 0 0; }
+  to   { background-position: 0 400px; }
+}
+
+/* Grain noise */
+body::after {
+  content: none;
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 9998;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  animation: none;
+}
+
+@keyframes grainshift {
+  0%  { transform: translate(0,0) rotate(0deg); }
+  20% { transform: translate(-2%,-3%); }
+  40% { transform: translate(3%,1%); }
+  60% { transform: translate(-1%,4%); }
+  80% { transform: translate(2%,-2%); }
+  100%{ transform: translate(-3%,2%); }
+}
+
+@keyframes glitch-h {
+  0%,90%,100%{ transform:translate(0); }
+  92%{ transform:translate(-4px,0); filter: hue-rotate(90deg); }
+  94%{ transform:translate(4px,0); }
+  96%{ transform:translate(-2px,0); filter: hue-rotate(-90deg); }
+  98%{ transform:translate(0); }
+}
+
+@keyframes flicker {
+  0%,96%,100%{ opacity:1; }
+  97%{ opacity:0.5; }
+  98%{ opacity:0.9; }
+  99%{ opacity:0.3; }
+}
+
+@keyframes chromatic {
+  0%,100%{ text-shadow:-1px 0 1px #ff2233, 1px 0 1px #00c8ff; }
+  50%     { text-shadow: 2px 0 1px #ff2233,-2px 0 1px #00c8ff; }
+}
+
+@keyframes signal-blink {
+  0%,45%,100%{ opacity:1; }
+  50%,95%    { opacity:0; }
+}
+
+@keyframes pulse-glow {
+  0%,100%{ box-shadow: 0 0 0 rgba(0,200,255,0); }
+  50%    { box-shadow: 0 0 16px rgba(0,200,255,0.2); }
+}
+
+/* Leaflet */
+.leaflet-container { background: #010407; }
+.leaflet-control-attribution { font-size:8px; opacity:0.15; background:transparent!important; color:var(--text-muted)!important; }
+.leaflet-control-zoom { border:1px solid var(--border)!important; border-radius:0!important; }
+.leaflet-control-zoom a { background:var(--surface)!important; color:var(--cyan)!important; border-color:var(--border)!important; border-radius:0!important; font-family:var(--font-mono)!important; }
+.leaflet-control-zoom a:hover { background:rgba(0,200,255,0.08)!important; }
+.leaflet-tooltip { background:transparent!important; border:none!important; box-shadow:none!important; padding:0!important; }
+
+.map-tooltip {
+  background: rgba(2,6,12,0.96);
+  border: 1px solid rgba(0,200,255,0.5);
+  border-left: 3px solid var(--red);
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  backdrop-filter: blur(4px);
+  position: relative;
+}
+.map-tooltip::after {
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,var(--red),var(--cyan),transparent);
+  opacity:0.6;
+}
+.map-tooltip strong { display:block; font-family:var(--font-display); font-size:16px; letter-spacing:0.08em; color:#fff; margin-bottom:5px; }
+.tt-row { display:flex; justify-content:space-between; gap:16px; }
+.tt-label { color:var(--text-muted); font-size:10px; }
+.tt-value { color:var(--cyan); font-family:var(--font-crt); font-size:16px; }
+.tt-sub { color:var(--text-muted); font-size:9px; margin-top:3px; letter-spacing:0.05em; }
