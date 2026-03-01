@@ -19,9 +19,6 @@ const TILESET_NIGHTLIGHT_202210 = 'arthurzhang.c9jgdeu9'
 const TILESET_NIGHTLIGHT_202211 = 'arthurzhang.7gqskfv0'
 const TILESET_NIGHTLIGHT_202212 = 'arthurzhang.5c0zjxze'
 
-
-
-
 const NIGHTLIGHT_TILESETS = {
   '2022-01': TILESET_NIGHTLIGHT_202201,
   '2022-02': TILESET_NIGHTLIGHT_202202,
@@ -35,8 +32,8 @@ const NIGHTLIGHT_TILESETS = {
   '2022-10': TILESET_NIGHTLIGHT_202210,
   '2022-11': TILESET_NIGHTLIGHT_202211,
   '2022-12': TILESET_NIGHTLIGHT_202212,
-
 }
+
 const NIGHTLIGHT_OPACITY = 0.8
 const TILESET_NATIVE_MAX_ZOOM = 9
 const PR_TILE_BOUNDS = [[17.75, -67.4], [18.6, -65.15]]
@@ -106,6 +103,7 @@ export default function MapView({
   powerlineData, showPowerlines,
 }) {
   const mapDivRef   = useRef(null)
+  const mapRef      = useRef(null)   
   const geoLayerRef = useRef(null)
   const tooltipRef  = useRef(null)
   const nightlightLayersRef = useRef({})
@@ -121,11 +119,13 @@ export default function MapView({
   useEffect(() => { featureMetaByFipsRef.current = featureMetaByFips }, [featureMetaByFips])
   useEffect(() => { metricConfigRef.current = metricConfig }, [metricConfig])
 
-  // Init map once
+  // Init map once — guarded against React StrictMode double-invoke
   useEffect(() => {
+    if (mapRef.current) return  
+
     const PR_BOUNDS = L.latLngBounds([[17.0, -68.5], [19.2, -64.5]])
     const map = L.map(mapDivRef.current, {
-      center: [19.1, -66.5],
+      center: [18.2, -66.5],
       zoom: 9,
       minZoom: 8,
       maxZoom: 14,
@@ -134,6 +134,9 @@ export default function MapView({
       zoomControl: true,
       attributionControl: true,
     })
+
+    mapRef.current = map  
+
     map.createPane('choroplethPane')
     map.getPane('choroplethPane').style.zIndex = '440'
     map.createPane('powerlinePane')
@@ -173,11 +176,13 @@ export default function MapView({
     })
 
     setMapObj(map)
+
     return () => {
       activeNightlightMonthRef.current = null
       Object.values(nightlightLayersRef.current).forEach(layer => layer?.remove())
       nightlightLayersRef.current = {}
       map.remove()
+      mapRef.current = null  // 
       setMapObj(null)
     }
   }, [])
@@ -285,7 +290,6 @@ export default function MapView({
     }
 
     Object.entries(nightlightLayersRef.current).forEach(([monthKey, layer]) => {
-      // Set target month to NIGHTLIGHT_OPACITY, all others to 0
       layer?.setOpacity(monthKey === targetMonth ? NIGHTLIGHT_OPACITY : 0)
       if (monthKey === targetMonth) {
         console.log('nightlight layer visible:', layer)

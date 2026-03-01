@@ -93,7 +93,7 @@ export default function App() {
 
   // Fetch required GeoJSONs in parallel
   useEffect(() => {
-    const base = import.meta.env.BASE_URL || '/CASA0028-DATASTORY-INDIVIDUAL/'
+    const base = import.meta.env.BASE_URL || '/CASA0028-DATASTORY-INDIVIDUAL-PUERTO-RICO/'
     Promise.all([
       fetch(base + 'data/pr_municipio_grid_indicators.geojson').then(r => { if (!r.ok) throw new Error(`pr_municipio_grid_indicators.geojson HTTP ${r.status}`); return r.json() }),
       fetch(base + 'data/Powergrid.geojson').then(r => { if (!r.ok) throw new Error(`Powergrid.geojson HTTP ${r.status}`); return r.json() }),
