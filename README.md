@@ -1,8 +1,8 @@
-# Puerto Rico Power Outage Atlas
+# Energy Inequality In Puerto Rico
 
 **A spatial data story visualising electricity infrastructure inequality across Puerto Rico's 78 municipios.**
 
-**Created & Visulised by Arthur Zhang.**
+##Created & Visulised by Arthur Zhang##
 
 🌐 **Live Site:** [https://ArthurZhang69.github.io/CASA0028-DATASTORY-INDIVIDUAL-PUERTO-RICO/](https://ArthurZhang69.github.io/CASA0028-DATASTORY-INDIVIDUAL-PUERTO-RICO/)
 
