@@ -2,7 +2,7 @@
 
 **A spatial data story visualising electricity infrastructure inequality across Puerto Rico's 78 municipios.**
 
-**Created & Visulised by Arthur Zhang**
+**Created & Visualised by Arthur Zhang**
 
 🌐 **Live Site:** [https://ArthurZhang69.github.io/CASA0028-DATASTORY-INDIVIDUAL-PUERTO-RICO/](https://ArthurZhang69.github.io/CASA0028-DATASTORY-INDIVIDUAL-PUERTO-RICO/)
 
